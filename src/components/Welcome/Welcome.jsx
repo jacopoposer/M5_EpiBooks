@@ -8,15 +8,14 @@ const Welcome = () => {
   const { isDark } = useContext(ThemeContext)
   return (
     <>
-    <Alert
-    className={`text-center fs-5 mb-0 border-0 rounded-0 ${
-        isDark
+      <Alert
+        className={`text-center fs-5 mb-0 border-0 rounded-0 ${isDark
             ? "bg-dark text-light"
             : "bg-light text-dark"
-    }`}
->
-    Welcome to EpiBooks!
-</Alert>
+          }`}
+      >
+        Welcome to EpiBooks!
+      </Alert>
     </>
   )
 }

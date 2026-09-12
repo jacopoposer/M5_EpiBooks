@@ -39,7 +39,8 @@ const CommentArea = ({  selectedBook }) => {
 
 
    return (
-    <Card className="h-100">
+    <Card className="h-100"
+    data-testid="CommentTest">
         <Card.Header>
             <Card.Title className="mb-0">
                 Reviews

@@ -1,25 +1,33 @@
-
-import MyFooter from "./components/MyFooter/MyFooter"
-import MyNav from "./components/MyNav/MyNav"
-import Welcome from "./components/Welcome/Welcome"
-import { useState } from "react"
+import HomePage from "./pages/HomePage/HomePage"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import NotFound from "./pages/NotFound/NotFound"
+import BookDetail from "./pages/BookDetail/BookDetail"
 import { ThemeProvider } from "./contexts/ThemeContext"
-import Main from "./components/Main/Main"
+
+
 
 function App() {
-  const [inputData, setInputData] = useState("")
+
   return (
-    <>
-      <ThemeProvider>
-        <MyNav
-          inputData={inputData}
-          setInputData={setInputData} />
-        <Welcome />
-       <Main
-       inputData={inputData}/>
-        <MyFooter />
-      </ThemeProvider>
-    </>
+    <ThemeProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            index
+            element={<HomePage />}
+          />
+          <Route
+            path="/:asin"
+            element={<BookDetail />}
+          />
+          <Route
+            path="*"
+            element={<NotFound />}
+          />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
+
   )
 }
 

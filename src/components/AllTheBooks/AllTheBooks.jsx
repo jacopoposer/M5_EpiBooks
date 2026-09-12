@@ -46,7 +46,7 @@ const AllTheBooks = ({ inputData, setSelectedBook, selectedBook }) => {
                         key={book.asin}
                         book={book}
                         selectedBook={selectedBook}
-                        setSelectedBook={setSelectedBook}
+                        setSelectedBook={setSelectedBook}                      
                     />
                 )}
             </Row>

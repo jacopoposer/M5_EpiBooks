@@ -1,22 +1,28 @@
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { Button, Card, CardFooter, Col } from "react-bootstrap"
 import { ThemeContext } from "../../contexts/ThemeContext"
-const SingleBook = ({ book, setSelectedBook, selectedBook}) => {
+import { useNavigate } from "react-router-dom"
 
-//context
+const SingleBook = ({ book, setSelectedBook, selectedBook, isDetail=false }) => {
+
+    //context
     const { isDark } = useContext(ThemeContext)
-   
-   
+
+    //navigate
+    const navigate = useNavigate()
+
     //funzioni
     const selectCard = () => {
         setSelectedBook(selectedBook === book.asin ? "" : book.asin)
     }
 
-
+    const detailCard = () => {
+        navigate(`/${book.asin}`)
+    }
 
     return (
         <Col
-
+         data-testid="BookCard"
             xs={12}
             sm={6}
             md={4}
@@ -30,22 +36,32 @@ const SingleBook = ({ book, setSelectedBook, selectedBook}) => {
                     variant="top"
                     src={book.img}
                     className="object-fit-cover h-50"
-                     />
+                />
                 <Card.Body className="d-flex flex-column justify-content-between ps-2">
 
                     <Card.Title className='card-title fs-6'>{book.title}</Card.Title>
                     <Card.Text className="fw-medium fs-6">{book.price} $</Card.Text>
                     <Card.Text>{book.category}</Card.Text>
                 </Card.Body>
-                <CardFooter className="d-flex flex-column justify-content-between ps-2">
+                {!isDetail && <CardFooter 
+                className="d-flex flex-column justify-content-between ps-2"
+                >
                     <Button
                         className="text-white"
                         variant='info'
-                        onClick={selectCard }
-                        >
+                        onClick={selectCard}
+                    >
                         Reviews
                     </Button>
-                </CardFooter>
+                    <Button
+                        className="text-white my-2"
+                        variant="info"
+                        onClick={detailCard}
+                        data-testid="DetailButtonTest"
+                    >
+                        Details
+                    </Button>
+                </CardFooter>}
 
             </Card>
         </Col>
