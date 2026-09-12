@@ -34,7 +34,9 @@ const SingleComment = ({ comment }) => {
     }
 
     return (
-        <Card className="mb-3 shadow-sm border-0">
+        <Card 
+        className="mb-3 shadow-sm border-0"
+        data-testid="CommentCard">
             <Card.Body className="p-3">
                 <Card.Text className="mb-3 fs-5">
                     {comment.comment}

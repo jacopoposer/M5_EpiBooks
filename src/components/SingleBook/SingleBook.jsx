@@ -22,7 +22,7 @@ const SingleBook = ({ book, setSelectedBook, selectedBook, isDetail=false }) => 
 
     return (
         <Col
-         data-testid="BookCard"
+         
             xs={12}
             sm={6}
             md={4}
@@ -31,7 +31,7 @@ const SingleBook = ({ book, setSelectedBook, selectedBook, isDetail=false }) => 
                 className={`h-100 d-flex flex-column 
     ${selectedBook === book.asin ? "border-danger border-2" : ""}
     ${isDark ? "bg-dark text-light" : "bg-light text-dark"}`}
-            >
+            data-testid="BookCard">
                 <Card.Img
                     variant="top"
                     src={book.img}
@@ -50,6 +50,7 @@ const SingleBook = ({ book, setSelectedBook, selectedBook, isDetail=false }) => 
                         className="text-white"
                         variant='info'
                         onClick={selectCard}
+                        data-testid="ReviewsButtonTest"
                     >
                         Reviews
                     </Button>
@@ -57,7 +58,7 @@ const SingleBook = ({ book, setSelectedBook, selectedBook, isDetail=false }) => 
                         className="text-white my-2"
                         variant="info"
                         onClick={detailCard}
-                        data-testid="DetailButtonTest"
+                        
                     >
                         Details
                     </Button>

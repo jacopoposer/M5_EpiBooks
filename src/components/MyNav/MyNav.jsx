@@ -1,5 +1,3 @@
-
-
 import { useContext } from "react"
 import { Button, Col, Container, Nav, Navbar, Row } from "react-bootstrap"
 import {ThemeContext} from "../../contexts/ThemeContext"
@@ -35,6 +33,7 @@ const MyNav = ({ inputData, setInputData }) => {
               value={inputData}
               onChange={onChangeInput}
               placeholder="search your book"
+              data-testid="SearchInput"
             />
 
             <Button
