@@ -1,0 +1,9 @@
+.book-cover {
+    width: 100%;
+    height: 420px;
+    object-fit: contain;
+}
+
+.book-title {
+    min-height: 72px;
+}

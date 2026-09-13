@@ -1,6 +1,6 @@
 import SingleComment from "../SingleComment/SingleComment"
 
-const CommentsList = ({ comments }) => {
+const CommentsList = ({ comments}) => {
 
     return (
         <>

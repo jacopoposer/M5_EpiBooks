@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { Alert } from "react-bootstrap"
-import { ThemeContext } from "../../contexts/ThemeContext"
+import { ThemeContext } from "../../contexts/ThemeContext/ThemeContext"
 
 const Welcome = () => {
 

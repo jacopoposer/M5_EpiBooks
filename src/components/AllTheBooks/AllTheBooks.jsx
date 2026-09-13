@@ -1,22 +1,39 @@
 import { Alert, Container, Row } from "react-bootstrap"
-import books from "../../books/history.json"
+import history from "../../books/history.json"
+import fantasy from "../../books/fantasy.json"
+import horror from "../../books/horror.json"
+import romance from "../../books/romance.json"
+import scifi from "../../books/scifi.json"
 import SingleBook from "../SingleBook/SingleBook"
 import { useContext, useEffect, useState } from "react"
-import { ThemeContext } from "../../contexts/ThemeContext"
+import { ThemeContext } from "../../contexts/ThemeContext/ThemeContext"
 
 
-const AllTheBooks = ({ inputData, setSelectedBook, selectedBook }) => {
+const AllTheBooks = ({ inputData, setSelectedBook, selectedBook, selectedCategory}) => {
+  
+    const categories = {
+    history,
+    fantasy,
+    horror,
+    romance,
+    scifi
+}
+  
     //stati
-    const [booksData, setBooksData] = useState(books)
+    const [booksData, setBooksData] = useState(history)
     const [isSearchEmpty, setIsSearchEmpty] = useState(false)
     const { isDark } = useContext(ThemeContext)
    
    
     //filtro
     useEffect(() => {
-        const filtered = books.filter(singleBook =>
+
+        const selectedBooks = categories[selectedCategory]
+
+        const filtered = selectedBooks.filter(singleBook =>
             singleBook.title.toLowerCase().includes(inputData.trim().toLowerCase())
         )
+        
         setBooksData(filtered)
 
         if (filtered.length === 0) {
@@ -25,7 +42,7 @@ const AllTheBooks = ({ inputData, setSelectedBook, selectedBook }) => {
             setIsSearchEmpty(false)
         }
 
-    }, [inputData])
+    }, [inputData, selectedCategory])
 
 
     return (

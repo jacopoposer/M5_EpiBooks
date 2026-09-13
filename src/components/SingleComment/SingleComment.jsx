@@ -1,10 +1,14 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Badge, Button, Card } from "react-bootstrap"
 import EditComment from "../EditComment/EditComment"
+import { CommentsContext } from "../../contexts/CommentsContext/CommentContexts"
+import { ThemeContext } from "../../contexts/ThemeContext/ThemeContext"
 
 const SingleComment = ({ comment }) => {
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTYyNGVhNTIxMDU5ZjAwMTVlMjNhMGMiLCJpYXQiOjE3ODg0NTgwOTIsImV4cCI6MTc4OTY2NzY5Mn0.M6z0meFQqBHSGGyB320gjp7QXlmqaX_7yca7KvRKTfk"
-
+    //context    
+    const { deleteComment } = useContext(CommentsContext)
+    const {isDark} = useContext(ThemeContext)
+   
     //stati
     const [isEditing, setIsEditing] = useState(false)
 
@@ -13,30 +17,14 @@ const SingleComment = ({ comment }) => {
         setIsEditing(!isEditing)
     }
 
-    // delete fetch
-    const deleteComment = async () => {
-        try {
-            const response = await fetch(
-                `https://striveschool-api.herokuapp.com/api/comments/${comment._id}`,
-                {
-                    method: "DELETE",
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            )
-
-            return await response.json()
-
-        } catch (error) {
-            console.error(error)
-        }
+    const deleteCommentOnClick = ()=> {
+        deleteComment(comment._id)
     }
 
     return (
-        <Card 
-        className="mb-3 shadow-sm border-0"
-        data-testid="CommentCard">
+        <Card
+            className={`mb-3 shadow-sm border-0 ${isDark ? "bg-dark text-light" : "bg-light text-dark"}`}
+            data-testid="CommentCard">
             <Card.Body className="p-3">
                 <Card.Text className="mb-3 fs-5">
                     {comment.comment}
@@ -51,25 +39,25 @@ const SingleComment = ({ comment }) => {
                         <Button
                             variant="outline-danger"
                             size="sm"
-                            onClick={deleteComment}
+                            onClick={deleteCommentOnClick}
                         >
                             Delete
                         </Button>
 
-                        <Button
-                            variant="info"
-                            size="sm"
-                            onClick={onEditing}
-                        >
-                            Edit
-                        </Button>
-                    </div>
+                    <Button
+                        variant="info"
+                        size="sm"
+                        onClick={onEditing}
+                    >
+                        Edit
+                    </Button>
                 </div>
-                {isEditing && (
-                    <EditComment comment={comment} />
-                )}
-            </Card.Body>
-        </Card>
+            </div>
+            {isEditing && (
+                <EditComment comment={comment} />
+            )}
+        </Card.Body>
+        </Card >
     )
 }
 

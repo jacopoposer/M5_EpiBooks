@@ -1,8 +1,12 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Button, Form } from "react-bootstrap"
+import { CommentsContext } from "../../contexts/CommentsContext/CommentContexts"
+import { ThemeContext } from "../../contexts/ThemeContext/ThemeContext"
 
 const EditComment = ({ comment }) => {
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTYyNGVhNTIxMDU5ZjAwMTVlMjNhMGMiLCJpYXQiOjE3ODg0NTgwOTIsImV4cCI6MTc4OTY2NzY5Mn0.M6z0meFQqBHSGGyB320gjp7QXlmqaX_7yca7KvRKTfk"
+    //context
+    const {editComment} = useContext(CommentsContext)
+    const {isDark} = useContext(ThemeContext)
 
     //stati
     const [editedComment, setEditedComment] = useState({
@@ -15,42 +19,28 @@ const EditComment = ({ comment }) => {
     const onChangeInput = (e) => {
         const { name, value } = e.target
 
-        setEditedComment({
-            ...editedComment,
-            [name]: value
-        })
+       setEditedComment(prev => ({
+    ...prev,
+    [name]: value
+}))
     }
 
-    //fetch PUT
-
-    const editComment = async (e) => {
+    const submitEditComment = async (e) =>{
         e.preventDefault()
-        try {
-            const response = await fetch(
-                `https://striveschool-api.herokuapp.com/api/comments/${comment._id}`,
-                {
-                    method: "PUT",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(editedComment)
-                }
-            )
-
-            return await response.json()
-
-        } catch (error) {
-            console.error(error)
-        }
+        await editComment(comment._id, editedComment)
     }
+
+   
 
     return (
         <Form
-            onSubmit={editComment}
+            onSubmit={submitEditComment}
             className="mt-3 p-2 w-100"
         >
-            <Form.Group className="d-flex flex-column gap-2 w-100">
+            <Form.Group 
+            className="d-flex flex-column gap-2 w-100"
+            data-bs-theme= {isDark ? "dark" : "light"}
+            >
 
                 <Form.Control
                     className="w-100"
