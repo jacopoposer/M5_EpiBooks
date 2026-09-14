@@ -28,3 +28,16 @@ test("render comments", async ()=>{
     
     expect(commentCards[0]).toBeInTheDocument()
 })
+
+test("show no reviews message for a book without reviews", async () => {
+
+    render(<App />)
+
+    const commentBtns = screen.getAllByTestId("ReviewsButtonTest")
+
+    fireEvent.click(commentBtns[INDICE_LIBRO_SENZA_COMMENTI])
+
+    const noReviewsMessage = await screen.findByText("No reviews yet")
+
+    expect(noReviewsMessage).toBeInTheDocument()
+})

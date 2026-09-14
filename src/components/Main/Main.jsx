@@ -1,12 +1,15 @@
 import { Col, Container, Form, Row } from "react-bootstrap"
 import AllTheBooks from "../AllTheBooks/AllTheBooks"
 import CommentArea from "../CommentArea/CommentArea"
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { ThemeContext } from "../../contexts/ThemeContext/ThemeContext"
 
 const Main = ({ inputData }) => {
+    //context
+    const { isDark } = useContext(ThemeContext)
+
     //stato
     const [selectedBook, setSelectedBook] = useState("")
-
     const [selectedCategory, setSelectedCategory] = useState("history")
 
     const onChangeCategory = (e) => {
@@ -15,15 +18,20 @@ const Main = ({ inputData }) => {
     return (
 
         <Container className="mt-3">
-            <div className="d-flex justify-content-end align-items-center gap-2 my-3 mb-4">
-                <Form.Label className="mb-0 fw-semibold">
+            <div className="d-flex justify-content-end align-items-center gap-2 my-3 mb-4"            >
+                <Form.Label
+                    className={`mb-0 fw-semibold ${isDark ? "text-light" : "text-dark"}`}
+                >
                     Select category:
                 </Form.Label>
 
                 <Form.Select
                     value={selectedCategory}
                     onChange={onChangeCategory}
-                    className="w-auto"
+                    className={`w-auto ${isDark
+                            ? "bg-dark text-light border-secondary"
+                            : "bg-light text-dark"
+                        }`}
                     aria-label="Select book category"
                 >
                     <option value="history">History</option>
